@@ -1,9 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-
-TodoForm.propTypes = {
-  
-};
 
 function TodoForm(props) {
   const {onSubmit} = props
