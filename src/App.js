@@ -1,30 +1,47 @@
 import React, { useState, useEffect } from 'react';
+import queryString from 'query-string';
 import './App.scss';
 import ColorBox from './components/ColorBox';
 import TodoList from './components/TodoList';
 import TodoForm from './components/TodoForm';
 import PostList from './components/PostList';
+import Pagination from './components/Pagination';
 
 function App() {
+    // pagination
+    const [pagination, setPagination] = useState({
+      _page: 1,
+      _limit: 10,
+      _totalRows: 1,
+    })
+    const [filterPage, setFilterPage] = useState({
+      _limit: 10,
+      _page: 1,
+    })
+    const handlePageChange = (newPage) => {
+      setFilterPage({
+        ...filterPage,
+        _page: newPage
+      })
+    }
   // post list
   const [postList, setPostList] = useState([]);
   useEffect(() => {
     async function fetchPosts(){
       try {
-        const response = await fetch('http://js-post-api.herokuapp.com/api/posts?_limit=10&_page=1')
-        const data = await response.json()
-        setPostList(data.data)
+        const paramString = queryString.stringify(filterPage)
+        const response = await fetch(`http://js-post-api.herokuapp.com/api/posts?${paramString}`)
+        // http://js-post-api.herokuapp.com/api/posts?_limit=2&_page=1
+        const responseJSON = await response.json()
+        const {data, pagination} = responseJSON
+        setPostList(data)
+        setPagination(pagination)
       } catch (error) {
         console.log(error)
       }
     }
     fetchPosts()
-    console.log('Post list');
-  },[])
-  useEffect(()=>{
-    console.log('allways run after each render');
-  })
-  // todo list
+  },[filterPage])
   const [todoList, setTodoList] = useState([
     { id: 1, title: 'I love Easy Frontend! 😍 ' },
     { id: 2, title: 'We love Easy Frontend! 🥰 ' },
@@ -42,6 +59,7 @@ function App() {
     todoList.push(value)
     setTodoList([...todoList])
   }
+
   return (
     <div className="app">
       <ColorBox/>
@@ -50,6 +68,7 @@ function App() {
       <TodoList todos={todoList} onTodoClick={handleTodoList} />
       <hr/>
       <PostList posts={postList}/>
+      <Pagination pagination={pagination} onPageChange={handlePageChange}/>
     </div>
   );
 }
