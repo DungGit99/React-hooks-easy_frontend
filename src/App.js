@@ -6,6 +6,8 @@ import TodoList from './components/TodoList';
 import TodoForm from './components/TodoForm';
 import PostList from './components/PostList';
 import Pagination from './components/Pagination';
+import PostSearchForm from './components/PostSearchForm';
+import UseRef from './components/useRef';
 
 function App() {
     // pagination
@@ -59,16 +61,29 @@ function App() {
     todoList.push(value)
     setTodoList([...todoList])
   }
-
+  // search form
+  const handleSearchChange = (newSearch) => {
+    setFilterPage({
+      ...filterPage,
+      _page: 1,
+      title_like: newSearch // Backend quy định
+      // http://js-post-api.herokuapp.com/api/posts?_limit=10&_page=1&title_like=Quis
+    })
+  }
   return (
     <div className="app">
-      <ColorBox/>
-      <hr/>
-      <TodoForm onSubmit={handleTodoForm}/>
-      <TodoList todos={todoList} onTodoClick={handleTodoList} />
-      <hr/>
-      <PostList posts={postList}/>
-      <Pagination pagination={pagination} onPageChange={handlePageChange}/>
+      <div style={{display: 'none'}}>
+        <ColorBox/>
+        <hr/>
+        <TodoForm onSubmit={handleTodoForm}/>
+        <TodoList todos={todoList} onTodoClick={handleTodoList} />
+      </div>
+      <div className='center'>
+        <PostSearchForm onSubmit={handleSearchChange}/>
+        <PostList posts={postList}/>
+        <Pagination pagination={pagination} onPageChange={handlePageChange}/>
+      </div>
+      <UseRef/>
     </div>
   );
 }
