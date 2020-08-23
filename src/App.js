@@ -8,6 +8,7 @@ import PostList from './components/PostList';
 import Pagination from './components/Pagination';
 import PostSearchForm from './components/PostSearchForm';
 import UseRef from './components/useRef';
+import Clock from './components/Clock';
 
 function App() {
     // pagination
@@ -78,12 +79,15 @@ function App() {
         <TodoForm onSubmit={handleTodoForm}/>
         <TodoList todos={todoList} onTodoClick={handleTodoList} />
       </div>
-      <div className='center'>
+      <div className='center' style={{display: 'none'}}>
         <PostSearchForm onSubmit={handleSearchChange}/>
         <PostList posts={postList}/>
         <Pagination pagination={pagination} onPageChange={handlePageChange}/>
+        <UseRef/>
       </div>
-      <UseRef/>
+      <div className='center'>
+        <Clock/>
+      </div>
     </div>
   );
 }
