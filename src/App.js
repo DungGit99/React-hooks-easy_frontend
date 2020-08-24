@@ -10,6 +10,7 @@ import PostSearchForm from './components/PostSearchForm';
 import UseRef from './components/useRef';
 import Clock from './components/Clock';
 import BetterClock from './components/BetterColock';
+import MagicBox from './components/MagicBox';
 
 function App() {
     // pagination
@@ -86,10 +87,11 @@ function App() {
         <Pagination pagination={pagination} onPageChange={handlePageChange}/>
         <UseRef/>
       </div>
-      <div className='center'>
+      <div className='center' style={{display: 'none'}}>
         <Clock/>
         <BetterClock/>
       </div>
+      <MagicBox/>
     </div>
   );
 }

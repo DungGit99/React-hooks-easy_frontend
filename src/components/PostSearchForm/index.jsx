@@ -3,7 +3,6 @@ import React, { useState, useRef } from 'react';
 const PostSearchForm = ({onSubmit}) => {
   const [searchTerm, setSerchTerm] = useState('')
   const typingTimeoutRef = useRef(null)
-  console.log(typingTimeoutRef);
   const handleSearchTermChange = e => {
     const value = e.target.value
     setSerchTerm(value)
