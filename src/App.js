@@ -9,6 +9,7 @@ import Pagination from './components/Pagination';
 import PostSearchForm from './components/PostSearchForm';
 import UseRef from './components/useRef';
 import Clock from './components/Clock';
+import BetterClock from './components/BetterColock';
 
 function App() {
     // pagination
@@ -87,6 +88,7 @@ function App() {
       </div>
       <div className='center'>
         <Clock/>
+        <BetterClock/>
       </div>
     </div>
   );
